@@ -1,0 +1,253 @@
+<h3>Basic Table</h3>
+<div class="card">
+    <p-table [value]="users" responsiveLayout="scroll">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Website</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-user>
+            <tr>
+                <td>{{user.id}}</td>
+                <td>{{user.name}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.phone}}</td>
+                <td>{{user.website}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+<br>
+
+<div
+    style="background: #ffffff; overflow:auto;width:auto;border:solid #4723d8;border-width:.1em .1em .1em .8em;padding:.2em .6em;">
+    <pre style="margin: 0; line-height: 125%"><span style="color: #007700">&lt;p</span><span style="color: #0000CC">-table</span> <span style="color: #FF0000; background-color: #FFAAAA">[</span><span style="color: #0000CC">value</span><span style="color: #FF0000; background-color: #FFAAAA">]=&quot;</span><span style="color: #0000CC">users</span><span style="color: #FF0000; background-color: #FFAAAA">&quot;</span> <span style="color: #0000CC">responsiveLayout=</span><span style="background-color: #fff0f0">&quot;scroll&quot;</span><span style="color: #007700">&gt;</span>
+        <span style="color: #007700">&lt;ng</span><span style="color: #0000CC">-template</span> <span style="color: #0000CC">pTemplate=</span><span style="background-color: #fff0f0">&quot;header&quot;</span><span style="color: #007700">&gt;</span>
+            <span style="color: #007700">&lt;tr&gt;</span>
+                <span style="color: #007700">&lt;th&gt;</span>ID<span style="color: #007700">&lt;/th&gt;</span>
+                <span style="color: #007700">&lt;th&gt;</span>Name<span style="color: #007700">&lt;/th&gt;</span>
+                <span style="color: #007700">&lt;th&gt;</span>Email<span style="color: #007700">&lt;/th&gt;</span>
+                <span style="color: #007700">&lt;th&gt;</span>Phone<span style="color: #007700">&lt;/th&gt;</span>
+                <span style="color: #007700">&lt;th&gt;</span>Website<span style="color: #007700">&lt;/th&gt;</span>
+            <span style="color: #007700">&lt;/tr&gt;</span>
+        <span style="color: #FF0000; background-color: #FFAAAA">&lt;</span>/ng-template&gt;
+        <span style="color: #007700">&lt;ng</span><span style="color: #0000CC">-template</span> <span style="color: #0000CC">pTemplate=</span><span style="background-color: #fff0f0">&quot;body&quot;</span> <span style="color: #0000CC">let-user</span><span style="color: #007700">&gt;</span>
+            <span style="color: #007700">&lt;tr&gt;</span>
+                <span style="color: #007700">&lt;td&gt;</span>user.id<span style="color: #007700">&lt;/td&gt;</span>
+                <span style="color: #007700">&lt;td&gt;</span>user.name<span style="color: #007700">&lt;/td&gt;</span>
+                <span style="color: #007700">&lt;td&gt;</span>user.email<span style="color: #007700">&lt;/td&gt;</span>
+                <span style="color: #007700">&lt;td&gt;</span>user.phone<span style="color: #007700">&lt;/td&gt;</span>
+                <span style="color: #007700">&lt;td&gt;</span>user.website<span style="color: #007700">&lt;/td&gt;</span>
+            <span style="color: #007700">&lt;/tr&gt;</span>
+        <span style="color: #FF0000; background-color: #FFAAAA">&lt;</span>/ng-template&gt;
+    <span style="color: #FF0000; background-color: #FFAAAA">&lt;</span>/p-table&gt;
+</pre>
+</div>
+
+<br>
+<h3>Advace Table</h3>
+<div class="card">
+    <div class="p-mb-3">
+        <p-button type="button" icon="pi pi-chevron-left" (click)="prev()" [disabled]="isFirstPage()"
+            styleClass="p-button-text"></p-button>
+        <p-button type="button" icon="pi pi-refresh" (click)="reset()" styleClass="p-button-text"></p-button>
+        <p-button type="button" icon="pi pi-chevron-right" (click)="next()" [disabled]="isLastPage()"
+            styleClass="p-button-text"></p-button>
+    </div>
+
+    <p-table #dt2 [value]="comments" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" [(first)]="first"
+        responsiveLayout="scroll" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [rowsPerPageOptions]="[10,25,50]" [globalFilterFields]="['id','name','email','comment']" [lazy]="true"
+        (onLazyLoad)="loadCustomers($event)" [totalRecords]="totalRecords" [loading]="loading" dataKey="id"
+        editMode="row">
+
+        //Header
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="id">ID <p-sortIcon field="id"></p-sortIcon>
+                </th>
+                <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon>
+                </th>
+                <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon>
+                </th>
+                <th pSortableColumn="comment">Comment <p-sortIcon field="comment"></p-sortIcon>
+                </th>
+                <th style="width:4rem"></th>
+            </tr>
+            <tr>
+                <th>
+                    <p-columnFilter type="text" field="id"></p-columnFilter>
+                </th>
+                <th>
+                    <p-columnFilter type="text" field="name"></p-columnFilter>
+                </th>
+                <th>
+                    <p-columnFilter type="text" field="email"></p-columnFilter>
+                </th>
+                <th>
+                    <p-columnFilter type="text" field="comment"></p-columnFilter>
+                </th>
+                <th style="width:4rem"></th>
+            </tr>
+        </ng-template>
+
+        //Body
+        <ng-template pTemplate="body" let-comment let-editing="editing" let-ri="rowIndex">
+            <tr [pEditableRow]="comment">
+
+                <!-- use <td pEditableColumn> for use edit table colum -->
+                <td>
+                    {{comment.id}}
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="comment.name">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{comment.name}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="comment.email">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{comment.email}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="comment.body">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{comment.body}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="text-align:center">
+                    <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil"
+                        (click)="onRowEditInit(comment)" class="p-button-rounded p-button-text"></button>
+                    <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check"
+                        (click)="onRowEditSave(comment)"
+                        class="p-button-rounded p-button-text p-button-success p-mr-2"></button>
+                    <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times"
+                        (click)="onRowEditCancel(comment, ri)"
+                        class="p-button-rounded p-button-text p-button-danger"></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<br>
+
+<!-- HTML generated using hilite.me -->
+<div
+    style="background: #ffffff; overflow:auto;width:auto;border:solid #4723d8;border-width:.1em .1em .1em .8em;padding:.2em .6em;">
+    <pre style="margin: 0; line-height: 125%"><span style="color: #007700">&lt;div</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&quot;p-mb-3&quot;</span><span style="color: #007700">&gt;</span>
+        <span style="color: #007700">&lt;p</span><span style="color: #0000CC">-button</span> <span style="color: #0000CC">type=</span><span style="background-color: #fff0f0">&quot;button&quot;</span> <span style="color: #0000CC">icon=</span><span style="background-color: #fff0f0">&quot;pi pi-chevron-left&quot;</span> <span style="color: #FF0000; background-color: #FFAAAA">(</span><span style="color: #0000CC">click</span><span style="color: #FF0000; background-color: #FFAAAA">)=&quot;</span><span style="color: #0000CC">prev</span><span style="color: #FF0000; background-color: #FFAAAA">()&quot;</span> <span style="color: #FF0000; background-color: #FFAAAA">[</span><span style="color: #0000CC">disabled</span><span style="color: #FF0000; background-color: #FFAAAA">]=&quot;</span><span style="color: #0000CC">isFirstPage</span><span style="color: #FF0000; background-color: #FFAAAA">()&quot;</span>
+            <span style="color: #0000CC">styleClass=</span><span style="background-color: #fff0f0">&quot;p-button-text&quot;</span><span style="color: #007700">&gt;</span><span style="color: #FF0000; background-color: #FFAAAA">&lt;</span>/p-button&gt;
+        <span style="color: #007700">&lt;p</span><span style="color: #0000CC">-button</span> <span style="color: #0000CC">type=</span><span style="background-color: #fff0f0">&quot;button&quot;</span> <span style="color: #0000CC">icon=</span><span style="background-color: #fff0f0">&quot;pi pi-refresh&quot;</span> <span style="color: #FF0000; background-color: #FFAAAA">(</span><span style="color: #0000CC">click</span><span style="color: #FF0000; background-color: #FFAAAA">)=&quot;</span><span style="color: #0000CC">reset</span><span style="color: #FF0000; background-color: #FFAAAA">()&quot;</span> <span style="color: #0000CC">styleClass=</span><span style="background-color: #fff0f0">&quot;p-button-text&quot;</span><span style="color: #007700">&gt;</span><span style="color: #FF0000; background-color: #FFAAAA">&lt;</span>/p-button&gt;
+        <span style="color: #007700">&lt;p</span><span style="color: #0000CC">-button</span> <span style="color: #0000CC">type=</span><span style="background-color: #fff0f0">&quot;button&quot;</span> <span style="color: #0000CC">icon=</span><span style="background-color: #fff0f0">&quot;pi pi-chevron-right&quot;</span> <span style="color: #FF0000; background-color: #FFAAAA">(</span><span style="color: #0000CC">click</span><span style="color: #FF0000; background-color: #FFAAAA">)=&quot;</span><span style="color: #0000CC">next</span><span style="color: #FF0000; background-color: #FFAAAA">()&quot;</span> <span style="color: #FF0000; background-color: #FFAAAA">[</span><span style="color: #0000CC">disabled</span><span style="color: #FF0000; background-color: #FFAAAA">]=&quot;</span><span style="color: #0000CC">isLastPage</span><span style="color: #FF0000; background-color: #FFAAAA">()&quot;</span>
+            <span style="color: #0000CC">styleClass=</span><span style="background-color: #fff0f0">&quot;p-button-text&quot;</span><span style="color: #007700">&gt;</span><span style="color: #FF0000; background-color: #FFAAAA">&lt;</span>/p-button&gt;
+    <span style="color: #007700">&lt;/div&gt;</span>
+
+    <span style="color: #007700">&lt;p</span><span style="color: #0000CC">-table</span> <span style="color: #FF0000; background-color: #FFAAAA">#</span><span style="color: #0000CC">dt2</span> <span style="color: #FF0000; background-color: #FFAAAA">[</span><span style="color: #0000CC">value</span><span style="color: #FF0000; background-color: #FFAAAA">]=&quot;</span><span style="color: #0000CC">comments</span><span style="color: #FF0000; background-color: #FFAAAA">&quot;</span> <span style="color: #FF0000; background-color: #FFAAAA">[</span><span style="color: #0000CC">paginator</span><span style="color: #FF0000; background-color: #FFAAAA">]=&quot;</span><span style="color: #0000CC">true</span><span style="color: #FF0000; background-color: #FFAAAA">&quot;</span> <span style="color: #FF0000; background-color: #FFAAAA">[</span><span style="color: #0000CC">rows</span><span style="color: #FF0000; background-color: #FFAAAA">]=&quot;</span><span style="color: #0000CC">10</span><span style="color: #FF0000; background-color: #FFAAAA">&quot;</span> <span style="color: #FF0000; background-color: #FFAAAA">[</span><span style="color: #0000CC">showCurrentPageReport</span><span style="color: #FF0000; background-color: #FFAAAA">]=&quot;</span><span style="color: #0000CC">true</span><span style="color: #FF0000; background-color: #FFAAAA">&quot;</span> <span style="color: #FF0000; background-color: #FFAAAA">[(</span><span style="color: #0000CC">first</span><span style="color: #FF0000; background-color: #FFAAAA">)]=&quot;</span><span style="color: #0000CC">first</span><span style="color: #FF0000; background-color: #FFAAAA">&quot;</span>
+        <span style="color: #0000CC">responsiveLayout=</span><span style="background-color: #fff0f0">&quot;scroll&quot;</span> <span style="color: #0000CC">currentPageReportTemplate=</span><span style="background-color: #fff0f0">&quot;Showing &lcub; first &rcub; to &lcub; last &rcub; of &lcub; totalRecords &rcub; entries&quot;</span>
+        <span style="color: #FF0000; background-color: #FFAAAA">[</span><span style="color: #0000CC">rowsPerPageOptions</span><span style="color: #FF0000; background-color: #FFAAAA">]=&quot;[</span><span style="color: #0000CC">10</span><span style="color: #FF0000; background-color: #FFAAAA">,</span><span style="color: #0000CC">25</span><span style="color: #FF0000; background-color: #FFAAAA">,</span><span style="color: #0000CC">50</span><span style="color: #FF0000; background-color: #FFAAAA">]&quot;</span> <span style="color: #FF0000; background-color: #FFAAAA">[</span><span style="color: #0000CC">globalFilterFields</span><span style="color: #FF0000; background-color: #FFAAAA">]=&quot;[&#39;</span><span style="color: #0000CC">id</span><span style="color: #FF0000; background-color: #FFAAAA">&#39;,&#39;</span><span style="color: #0000CC">name</span><span style="color: #FF0000; background-color: #FFAAAA">&#39;,&#39;</span><span style="color: #0000CC">email</span><span style="color: #FF0000; background-color: #FFAAAA">&#39;,&#39;</span><span style="color: #0000CC">comment</span><span style="color: #FF0000; background-color: #FFAAAA">&#39;]&quot;</span> <span style="color: #FF0000; background-color: #FFAAAA">[</span><span style="color: #0000CC">lazy</span><span style="color: #FF0000; background-color: #FFAAAA">]=&quot;</span><span style="color: #0000CC">true</span><span style="color: #FF0000; background-color: #FFAAAA">&quot;</span>
+        <span style="color: #FF0000; background-color: #FFAAAA">(</span><span style="color: #0000CC">onLazyLoad</span><span style="color: #FF0000; background-color: #FFAAAA">)=&quot;</span><span style="color: #0000CC">loadCustomers</span><span style="color: #FF0000; background-color: #FFAAAA">($</span><span style="color: #0000CC">event</span><span style="color: #FF0000; background-color: #FFAAAA">)&quot;</span> <span style="color: #FF0000; background-color: #FFAAAA">[</span><span style="color: #0000CC">totalRecords</span><span style="color: #FF0000; background-color: #FFAAAA">]=&quot;</span><span style="color: #0000CC">totalRecords</span><span style="color: #FF0000; background-color: #FFAAAA">&quot;</span> <span style="color: #FF0000; background-color: #FFAAAA">[</span><span style="color: #0000CC">loading</span><span style="color: #FF0000; background-color: #FFAAAA">]=&quot;</span><span style="color: #0000CC">loading</span><span style="color: #FF0000; background-color: #FFAAAA">&quot;</span> <span style="color: #0000CC">dataKey=</span><span style="background-color: #fff0f0">&quot;id&quot;</span>
+        <span style="color: #0000CC">editMode=</span><span style="background-color: #fff0f0">&quot;row&quot;</span><span style="color: #007700">&gt;</span>
+
+        //Header
+        <span style="color: #007700">&lt;ng</span><span style="color: #0000CC">-template</span> <span style="color: #0000CC">pTemplate=</span><span style="background-color: #fff0f0">&quot;header&quot;</span><span style="color: #007700">&gt;</span>
+            <span style="color: #007700">&lt;tr&gt;</span>
+                <span style="color: #007700">&lt;th</span> <span style="color: #0000CC">pSortableColumn=</span><span style="background-color: #fff0f0">&quot;id&quot;</span><span style="color: #007700">&gt;</span>ID <span style="color: #007700">&lt;p</span><span style="color: #0000CC">-sortIcon</span> <span style="color: #0000CC">field=</span><span style="background-color: #fff0f0">&quot;id&quot;</span><span style="color: #007700">&gt;</span><span style="color: #FF0000; background-color: #FFAAAA">&lt;</span>/p-sortIcon&gt;
+                <span style="color: #007700">&lt;/th&gt;</span>
+                <span style="color: #007700">&lt;th</span> <span style="color: #0000CC">pSortableColumn=</span><span style="background-color: #fff0f0">&quot;name&quot;</span><span style="color: #007700">&gt;</span>Name <span style="color: #007700">&lt;p</span><span style="color: #0000CC">-sortIcon</span> <span style="color: #0000CC">field=</span><span style="background-color: #fff0f0">&quot;name&quot;</span><span style="color: #007700">&gt;</span><span style="color: #FF0000; background-color: #FFAAAA">&lt;</span>/p-sortIcon&gt;
+                <span style="color: #007700">&lt;/th&gt;</span>
+                <span style="color: #007700">&lt;th</span> <span style="color: #0000CC">pSortableColumn=</span><span style="background-color: #fff0f0">&quot;email&quot;</span><span style="color: #007700">&gt;</span>Email <span style="color: #007700">&lt;p</span><span style="color: #0000CC">-sortIcon</span> <span style="color: #0000CC">field=</span><span style="background-color: #fff0f0">&quot;email&quot;</span><span style="color: #007700">&gt;</span><span style="color: #FF0000; background-color: #FFAAAA">&lt;</span>/p-sortIcon&gt;
+                <span style="color: #007700">&lt;/th&gt;</span>
+                <span style="color: #007700">&lt;th</span> <span style="color: #0000CC">pSortableColumn=</span><span style="background-color: #fff0f0">&quot;comment&quot;</span><span style="color: #007700">&gt;</span>Comment <span style="color: #007700">&lt;p</span><span style="color: #0000CC">-sortIcon</span> <span style="color: #0000CC">field=</span><span style="background-color: #fff0f0">&quot;comment&quot;</span><span style="color: #007700">&gt;</span><span style="color: #FF0000; background-color: #FFAAAA">&lt;</span>/p-sortIcon&gt;
+                <span style="color: #007700">&lt;/th&gt;</span>
+                <span style="color: #007700">&lt;th</span> <span style="color: #0000CC">style=</span><span style="background-color: #fff0f0">&quot;width:4rem&quot;</span><span style="color: #007700">&gt;&lt;/th&gt;</span>
+            <span style="color: #007700">&lt;/tr&gt;</span>
+            <span style="color: #007700">&lt;tr&gt;</span>
+                <span style="color: #007700">&lt;th&gt;</span>
+                    <span style="color: #007700">&lt;p</span><span style="color: #0000CC">-columnFilter</span> <span style="color: #0000CC">type=</span><span style="background-color: #fff0f0">&quot;text&quot;</span> <span style="color: #0000CC">field=</span><span style="background-color: #fff0f0">&quot;id&quot;</span><span style="color: #007700">&gt;</span><span style="color: #FF0000; background-color: #FFAAAA">&lt;</span>/p-columnFilter&gt;
+                <span style="color: #007700">&lt;/th&gt;</span>
+                <span style="color: #007700">&lt;th&gt;</span>
+                    <span style="color: #007700">&lt;p</span><span style="color: #0000CC">-columnFilter</span> <span style="color: #0000CC">type=</span><span style="background-color: #fff0f0">&quot;text&quot;</span> <span style="color: #0000CC">field=</span><span style="background-color: #fff0f0">&quot;name&quot;</span><span style="color: #007700">&gt;</span><span style="color: #FF0000; background-color: #FFAAAA">&lt;</span>/p-columnFilter&gt;
+                <span style="color: #007700">&lt;/th&gt;</span>
+                <span style="color: #007700">&lt;th&gt;</span>
+                    <span style="color: #007700">&lt;p</span><span style="color: #0000CC">-columnFilter</span> <span style="color: #0000CC">type=</span><span style="background-color: #fff0f0">&quot;text&quot;</span> <span style="color: #0000CC">field=</span><span style="background-color: #fff0f0">&quot;email&quot;</span><span style="color: #007700">&gt;</span><span style="color: #FF0000; background-color: #FFAAAA">&lt;</span>/p-columnFilter&gt;
+                <span style="color: #007700">&lt;/th&gt;</span>
+                <span style="color: #007700">&lt;th&gt;</span>
+                    <span style="color: #007700">&lt;p</span><span style="color: #0000CC">-columnFilter</span> <span style="color: #0000CC">type=</span><span style="background-color: #fff0f0">&quot;text&quot;</span> <span style="color: #0000CC">field=</span><span style="background-color: #fff0f0">&quot;comment&quot;</span><span style="color: #007700">&gt;</span><span style="color: #FF0000; background-color: #FFAAAA">&lt;</span>/p-columnFilter&gt;
+                <span style="color: #007700">&lt;/th&gt;</span>
+                <span style="color: #007700">&lt;th</span> <span style="color: #0000CC">style=</span><span style="background-color: #fff0f0">&quot;width:4rem&quot;</span><span style="color: #007700">&gt;&lt;/th&gt;</span>
+            <span style="color: #007700">&lt;/tr&gt;</span>
+        <span style="color: #FF0000; background-color: #FFAAAA">&lt;</span>/ng-template&gt;
+
+        //Body
+        <span style="color: #007700">&lt;ng</span><span style="color: #0000CC">-template</span> <span style="color: #0000CC">pTemplate=</span><span style="background-color: #fff0f0">&quot;body&quot;</span> <span style="color: #0000CC">let-comment</span> <span style="color: #0000CC">let-editing=</span><span style="background-color: #fff0f0">&quot;editing&quot;</span> <span style="color: #0000CC">let-ri=</span><span style="background-color: #fff0f0">&quot;rowIndex&quot;</span><span style="color: #007700">&gt;</span>
+            <span style="color: #007700">&lt;tr</span> <span style="color: #FF0000; background-color: #FFAAAA">[</span><span style="color: #0000CC">pEditableRow</span><span style="color: #FF0000; background-color: #FFAAAA">]=&quot;</span><span style="color: #0000CC">comment</span><span style="color: #FF0000; background-color: #FFAAAA">&quot;</span><span style="color: #007700">&gt;</span>
+
+                <span style="color: #888888">&lt;!-- use &lt;td pEditableColumn&gt; for use edit table colum --&gt;</span>
+                <span style="color: #007700">&lt;td&gt;</span>
+                &lcub; comment.id &rcub;
+                <span style="color: #007700">&lt;/td&gt;</span>
+                <span style="color: #007700">&lt;td&gt;</span>
+                    <span style="color: #007700">&lt;p</span><span style="color: #0000CC">-cellEditor</span><span style="color: #007700">&gt;</span>
+                        <span style="color: #007700">&lt;ng</span><span style="color: #0000CC">-template</span> <span style="color: #0000CC">pTemplate=</span><span style="background-color: #fff0f0">&quot;input&quot;</span><span style="color: #007700">&gt;</span>
+                            <span style="color: #007700">&lt;input</span> <span style="color: #0000CC">pInputText</span> <span style="color: #0000CC">type=</span><span style="background-color: #fff0f0">&quot;text&quot;</span> <span style="color: #FF0000; background-color: #FFAAAA">[(</span><span style="color: #0000CC">ngModel</span><span style="color: #FF0000; background-color: #FFAAAA">)]=&quot;</span><span style="color: #0000CC">comment</span><span style="color: #FF0000; background-color: #FFAAAA">.</span><span style="color: #0000CC">name</span><span style="color: #FF0000; background-color: #FFAAAA">&quot;</span><span style="color: #007700">&gt;</span>
+                        <span style="color: #FF0000; background-color: #FFAAAA">&lt;</span>/ng-template&gt;
+                        <span style="color: #007700">&lt;ng</span><span style="color: #0000CC">-template</span> <span style="color: #0000CC">pTemplate=</span><span style="background-color: #fff0f0">&quot;output&quot;</span><span style="color: #007700">&gt;</span>
+                        &lcub; comment.name &rcub;
+                        <span style="color: #FF0000; background-color: #FFAAAA">&lt;</span>/ng-template&gt;
+                    <span style="color: #FF0000; background-color: #FFAAAA">&lt;</span>/p-cellEditor&gt;
+                <span style="color: #007700">&lt;/td&gt;</span>
+                <span style="color: #007700">&lt;td&gt;</span>
+                    <span style="color: #007700">&lt;p</span><span style="color: #0000CC">-cellEditor</span><span style="color: #007700">&gt;</span>
+                        <span style="color: #007700">&lt;ng</span><span style="color: #0000CC">-template</span> <span style="color: #0000CC">pTemplate=</span><span style="background-color: #fff0f0">&quot;input&quot;</span><span style="color: #007700">&gt;</span>
+                            <span style="color: #007700">&lt;input</span> <span style="color: #0000CC">pInputText</span> <span style="color: #0000CC">type=</span><span style="background-color: #fff0f0">&quot;text&quot;</span> <span style="color: #FF0000; background-color: #FFAAAA">[(</span><span style="color: #0000CC">ngModel</span><span style="color: #FF0000; background-color: #FFAAAA">)]=&quot;</span><span style="color: #0000CC">comment</span><span style="color: #FF0000; background-color: #FFAAAA">.</span><span style="color: #0000CC">email</span><span style="color: #FF0000; background-color: #FFAAAA">&quot;</span><span style="color: #007700">&gt;</span>
+                        <span style="color: #FF0000; background-color: #FFAAAA">&lt;</span>/ng-template&gt;
+                        <span style="color: #007700">&lt;ng</span><span style="color: #0000CC">-template</span> <span style="color: #0000CC">pTemplate=</span><span style="background-color: #fff0f0">&quot;output&quot;</span><span style="color: #007700">&gt;</span>
+                        &lcub; comment.email &rcub;
+                        <span style="color: #FF0000; background-color: #FFAAAA">&lt;</span>/ng-template&gt;
+                    <span style="color: #FF0000; background-color: #FFAAAA">&lt;</span>/p-cellEditor&gt;
+                <span style="color: #007700">&lt;/td&gt;</span>
+                <span style="color: #007700">&lt;td&gt;</span>
+                    <span style="color: #007700">&lt;p</span><span style="color: #0000CC">-cellEditor</span><span style="color: #007700">&gt;</span>
+                        <span style="color: #007700">&lt;ng</span><span style="color: #0000CC">-template</span> <span style="color: #0000CC">pTemplate=</span><span style="background-color: #fff0f0">&quot;input&quot;</span><span style="color: #007700">&gt;</span>
+                            <span style="color: #007700">&lt;input</span> <span style="color: #0000CC">pInputText</span> <span style="color: #0000CC">type=</span><span style="background-color: #fff0f0">&quot;text&quot;</span> <span style="color: #FF0000; background-color: #FFAAAA">[(</span><span style="color: #0000CC">ngModel</span><span style="color: #FF0000; background-color: #FFAAAA">)]=&quot;</span><span style="color: #0000CC">comment</span><span style="color: #FF0000; background-color: #FFAAAA">.</span><span style="color: #0000CC">body</span><span style="color: #FF0000; background-color: #FFAAAA">&quot;</span><span style="color: #007700">&gt;</span>
+                        <span style="color: #FF0000; background-color: #FFAAAA">&lt;</span>/ng-template&gt;
+                        <span style="color: #007700">&lt;ng</span><span style="color: #0000CC">-template</span> <span style="color: #0000CC">pTemplate=</span><span style="background-color: #fff0f0">&quot;output&quot;</span><span style="color: #007700">&gt;</span>
+                        &lcub; comment.body &rcub;
+                        <span style="color: #FF0000; background-color: #FFAAAA">&lt;</span>/ng-template&gt;
+                    <span style="color: #FF0000; background-color: #FFAAAA">&lt;</span>/p-cellEditor&gt;
+                <span style="color: #007700">&lt;/td&gt;</span>
+                <span style="color: #007700">&lt;td</span> <span style="color: #0000CC">style=</span><span style="background-color: #fff0f0">&quot;text-align:center&quot;</span><span style="color: #007700">&gt;</span>
+                    <span style="color: #007700">&lt;button</span> <span style="color: #FF0000; background-color: #FFAAAA">*</span><span style="color: #0000CC">ngIf=</span><span style="background-color: #fff0f0">&quot;!editing&quot;</span> <span style="color: #0000CC">pButton</span> <span style="color: #0000CC">pRipple</span> <span style="color: #0000CC">type=</span><span style="background-color: #fff0f0">&quot;button&quot;</span> <span style="color: #0000CC">pInitEditableRow</span> <span style="color: #0000CC">icon=</span><span style="background-color: #fff0f0">&quot;pi pi-pencil&quot;</span>
+                        <span style="color: #FF0000; background-color: #FFAAAA">(</span><span style="color: #0000CC">click</span><span style="color: #FF0000; background-color: #FFAAAA">)=&quot;</span><span style="color: #0000CC">onRowEditInit</span><span style="color: #FF0000; background-color: #FFAAAA">(</span><span style="color: #0000CC">comment</span><span style="color: #FF0000; background-color: #FFAAAA">)&quot;</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&quot;p-button-rounded p-button-text&quot;</span><span style="color: #007700">&gt;&lt;/button&gt;</span>
+                    <span style="color: #007700">&lt;button</span> <span style="color: #FF0000; background-color: #FFAAAA">*</span><span style="color: #0000CC">ngIf=</span><span style="background-color: #fff0f0">&quot;editing&quot;</span> <span style="color: #0000CC">pButton</span> <span style="color: #0000CC">pRipple</span> <span style="color: #0000CC">type=</span><span style="background-color: #fff0f0">&quot;button&quot;</span> <span style="color: #0000CC">pSaveEditableRow</span> <span style="color: #0000CC">icon=</span><span style="background-color: #fff0f0">&quot;pi pi-check&quot;</span>
+                        <span style="color: #FF0000; background-color: #FFAAAA">(</span><span style="color: #0000CC">click</span><span style="color: #FF0000; background-color: #FFAAAA">)=&quot;</span><span style="color: #0000CC">onRowEditSave</span><span style="color: #FF0000; background-color: #FFAAAA">(</span><span style="color: #0000CC">comment</span><span style="color: #FF0000; background-color: #FFAAAA">)&quot;</span>
+                        <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&quot;p-button-rounded p-button-text p-button-success p-mr-2&quot;</span><span style="color: #007700">&gt;&lt;/button&gt;</span>
+                    <span style="color: #007700">&lt;button</span> <span style="color: #FF0000; background-color: #FFAAAA">*</span><span style="color: #0000CC">ngIf=</span><span style="background-color: #fff0f0">&quot;editing&quot;</span> <span style="color: #0000CC">pButton</span> <span style="color: #0000CC">pRipple</span> <span style="color: #0000CC">type=</span><span style="background-color: #fff0f0">&quot;button&quot;</span> <span style="color: #0000CC">pCancelEditableRow</span> <span style="color: #0000CC">icon=</span><span style="background-color: #fff0f0">&quot;pi pi-times&quot;</span>
+                        <span style="color: #FF0000; background-color: #FFAAAA">(</span><span style="color: #0000CC">click</span><span style="color: #FF0000; background-color: #FFAAAA">)=&quot;</span><span style="color: #0000CC">onRowEditCancel</span><span style="color: #FF0000; background-color: #FFAAAA">(</span><span style="color: #0000CC">comment</span><span style="color: #FF0000; background-color: #FFAAAA">,</span> <span style="color: #0000CC">ri</span><span style="color: #FF0000; background-color: #FFAAAA">)&quot;</span>
+                        <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&quot;p-button-rounded p-button-text p-button-danger&quot;</span><span style="color: #007700">&gt;&lt;/button&gt;</span>
+                <span style="color: #007700">&lt;/td&gt;</span>
+            <span style="color: #007700">&lt;/tr&gt;</span>
+        <span style="color: #FF0000; background-color: #FFAAAA">&lt;</span>/ng-template&gt;
+    <span style="color: #FF0000; background-color: #FFAAAA">&lt;</span>/p-table&gt;
+</pre>
+</div>
+<br>
